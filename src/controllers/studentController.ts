@@ -1,10 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import Teacher, { ITeacher } from "../models/teacherModel";
-import { generateToken } from "../utils/auth";
-import { createStudent, createTeacher } from "../services/authService";
 import studentModel from "../models/studentModel";
-import teacherModel from "../models/teacherModel";
-import { log } from "console";
 import { AuthRequest } from "../middleware/authMiddleware";
 
 export const studentGrades = async (req: AuthRequest, res: Response) => {

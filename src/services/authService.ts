@@ -25,6 +25,7 @@ export const createStudent = async (body: any): Promise<Types.ObjectId|unknown> 
     name: body.name,
     password: body.password,
     email: body.email,
+    classId: body.classId,
   });
   await Class.findByIdAndUpdate(body.classId, {
     $push: { studentsId: newStudent._id },

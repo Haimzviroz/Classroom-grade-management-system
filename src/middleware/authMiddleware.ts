@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 //לפני שאממש בפועל אני מגדיר אינטרפייס שיכלול משתמש
 
 export interface AuthRequest extends Request {
-    user?: { userId: string }
+    user?: { userId: string , role: "student" | "teacher"}
 };
 
 
@@ -20,7 +20,7 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
     }
     try {
         //ניסיון לאמת את הטוקן
-        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { userId: string}
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { userId: string, role: "student" | "teacher" };
         //אם האימות מצליח אני מוסיף את פרטי המשתמש לאובייקט הבקשה
         req.user = decoded;
         //ממשיך לפונקציה הבאה בשרשרת הטיפול        

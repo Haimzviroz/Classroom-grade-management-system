@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import authRouter from "./routes/authRoutes";
 import studentsRouter from "./routes/studentRoutes";
+import teacherRouter from "./routes/teacherRoutes";
 import { errorHandler } from "./middleware/errorHandler";
 import connectDB from "./config/db";
 import cookieParser from "cookie-parser";
@@ -38,6 +39,7 @@ connectDB();
 // Routes
 app.use("/api/auth", authRouter);
 app.use("/api", studentsRouter);
+app.use("/api", teacherRouter)
 
 // Error handling middleware
 app.use(errorHandler);

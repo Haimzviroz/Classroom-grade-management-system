@@ -38,15 +38,17 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
     const Student = await studentModel.findOne({ email });
-    const Teacher = await studentModel.findOne({ email });
+    const Teacher = await teacherModel.findOne({ email });    
 
     if (!Student && !Teacher) {
       res.status(404).json({ message: "משתמש לא קיים" });
+      return;
     }
     if (Student) {
       const isMatch = await Student.comparePassword(password);
       if (!isMatch) {
         res.status(401).json({ message: "סיסמא שגויה" });
+        return;
       }
       const token = generateToken(Student.id, "student");
       res.cookie("token", token, {
@@ -59,6 +61,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       const isMatch = await Teacher.comparePassword(password);
       if (!isMatch) {
         res.status(400).json({ message: "סיסמא שגויה" });
+        return;
       }
       const token = generateToken(Teacher.id, "teacher");
       res.cookie("token", token, {
