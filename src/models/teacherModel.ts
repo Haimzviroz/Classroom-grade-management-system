@@ -6,7 +6,7 @@ export interface ITeacher extends Document {
   name: string;
   email: string;
   password: string;
-  class: Types.ObjectId[];
+  classId?: Types.ObjectId;
   comparePassword(userPassword: string): Promise<boolean>;
 }
 
@@ -39,6 +39,10 @@ const StudentSchema = new Schema<ITeacher>({
       message: "Please enter a valid email address",
     },
   },
+  classId:{
+    type: Types.ObjectId,
+    ref: "Class",
+  }
 });
 
 // Hashing password before saving the user

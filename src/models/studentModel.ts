@@ -11,7 +11,7 @@ export interface IStudent extends Document {
   password: string;
   email: string;
   grades: IGrade[];
-  classId: Types.ObjectId[];
+  classId?: Types.ObjectId;
   comparePassword(userPassword: string): Promise<boolean>;
 }
 const GradeSchema = new Schema<IGrade>({
@@ -57,6 +57,10 @@ const StudentSchema = new Schema<IStudent>({
     },
   },
   grades: [GradeSchema],
+  classId: {
+    type: Types.ObjectId,
+    ref: "Class",
+  }
 });
 
 // Hashing password before saving the user
